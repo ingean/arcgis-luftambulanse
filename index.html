@@ -11,8 +11,8 @@
     <script src="https://js.arcgis.com/calcite-components/1.0.0-beta.76/calcite.esm.js" type="module"></script>
     <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.0.0-beta.76/calcite.css" />
     
-    <link id="jsapi-theme-light" rel="stylesheet" href="https://js.arcgis.com/4.22/@arcgis/core/assets/esri/themes/light/main.css" disabled>
-    <link id="jsapi-theme-dark" rel="stylesheet" href="https://js.arcgis.com/4.22/@arcgis/core/assets/esri/themes/dark/main.css" />
+    <link id="jsapi-theme-light" rel="stylesheet" href="https://js.arcgis.com/4.23/@arcgis/core/assets/esri/themes/light/main.css" disabled>
+    <link id="jsapi-theme-dark" rel="stylesheet" href="https://js.arcgis.com/4.23/@arcgis/core/assets/esri/themes/dark/main.css" />
   
     <link rel="stylesheet" href="./css/main.css" />
   </head>
@@ -37,7 +37,7 @@
         <calcite-shell-panel slot="primary-panel" detached>
   
           <calcite-action-bar slot="action-bar" intl-collapse="Minimere" intl-expand="Maksimere">
-            <calcite-action data-action-id="findresource" icon="drone-fixed-wing" text="Finn raskeste"></calcite-action>
+            <calcite-action data-action-id="findresource" icon="drone-fixed-wing" text="Finn raskeste" active></calcite-action>
             <calcite-action data-action-id="layers" icon="layers" text="Kartlag"></calcite-action>
             <calcite-action data-action-id="basemaps" icon="basemap" text="Bakgrunnskart"></calcite-action>
             <calcite-action data-action-id="legend" icon="legend" text="Tegnforklaring"></calcite-action>
@@ -62,34 +62,34 @@
             <div id="print-container"></div>
           </calcite-panel>
   
-          <!-- info panel (populates with info from the web map) -->
+          <!-- Custom panel -->
           <calcite-panel heading="Finn raskeste" data-panel-id="findresource">
-            <calcite-block collapsible heading="Finn raskeste ressurs" summary="Finner nærmeste helikopterbase basert på total responstid">
-              <calcite-icon scale="s" slot="icon" icon="drone-fixed-wing"></calcite-icon>
-              <calcite-button>
-                <calcite-icon scale="s" slot="icon" icon="pencil"></calcite-icon>
-              </calcite-button>
-              <calcite-dropdown>
-                <calcite-button slot="dropdown-trigger">Activate Dropdown</calcite-button>
-                <calcite-dropdown-group selection-mode="single" group-title="Selection Mode: Single">
-                    <calcite-dropdown-item>Relevance</calcite-dropdown-item>
-                    <calcite-dropdown-item active>Date modified</calcite-dropdown-item>
-                    <calcite-dropdown-item>Title</calcite-dropdown-item>
-                </calcite-dropdown-group>
-  
-            </calcite-dropdown>
-
-              
+            <calcite-block collapsible heading="Velg akuttmottak" summary="Velge mottakssted i listen under" open>
+              <calcite-icon scale="s" slot="icon" icon="organization"></calcite-icon>
+              <calcite-pick-list id="hospitals-list"></calcite-pick-list>
             </calcite-block>
-            <calcite-block collapsible heading="Helikopterbaser" summary="Resultater fra analysen">
-              <calcite-icon scale="s" slot="icon" icon="drone-fixed-wing"></calcite-icon>
-              
+            <calcite-block collapsible heading="Legg til hendelse" summary="Aktivere redigeringsverktøyet og klikk i kartet for å legge til en ny hendelse" open>
+              <calcite-icon scale="s" slot="icon" icon="exclamation-mark-triangle"></calcite-icon>
+              <calcite-action id="add-mappoint" text="Legg til hendelse" text-enabled icon="pencil"></calcite-action>
+              <calcite-list id="incident-list"></calcite-list>
+            </calcite-block>
+            <calcite-block collapsible heading="Velg utstyr" summary="Velg foretrukket redningsutstyr">
+              <calcite-icon scale="s" slot="icon" icon="gear"></calcite-icon>
+              <calcite-radio-group>
+                <calcite-radio-group-item value="bag" checked>Rescuebag</calcite-radio-group-item>
+                <calcite-radio-group-item value="harness">Triangelsele</calcite-radio-group-item>
+              </calcite-radio-group>
+            </calcite-block>
+            <calcite-block  collapsible heading="Resultat" summary="Tilgjengelige stasjoner sortert etter total redningstid" open>
+              <calcite-icon scale="s" slot="icon" icon="timer"></calcite-icon>
+              <div id="results-block-container"></div>
             </calcite-block>
           </calcite-panel>
   
         </calcite-shell-panel>
   
         <div id="viewDiv"></div>
+        <div id="alert-container"></div>
   
       </calcite-shell>
   

@@ -48,8 +48,8 @@ calcite-loader {
   cursor: pointer;
 }
 
-#info-content {
-  padding: 0.75rem;
+#add-mappoint:active {
+  background-color: var(--calcite-ui-brand);
 }
 
 calcite-rating {
