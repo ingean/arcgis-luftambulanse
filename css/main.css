@@ -52,6 +52,33 @@ calcite-loader {
   background-color: var(--calcite-ui-brand);
 }
 
-calcite-rating {
-  margin-top: 0.25rem;
+#timeline-container {
+  height: 90%;
+}
+
+#legend-container {
+  height: 10%;
+}
+
+
+.gantt-legend {
+  display: flex;
+  flex-direction: row;
+}
+
+.legend-color {
+  width: 50px;
+  height: 20px;
+}
+
+.legend-color-1 {
+  background-color: #36DA43;
+}
+
+.legend-color-2 {
+  background-color: #00A0FF;
+}
+
+.legend-color-3 {
+  background-color: #FF0015;
 }

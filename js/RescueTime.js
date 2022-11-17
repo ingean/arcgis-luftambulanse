@@ -5,6 +5,7 @@ import { createElement } from './utils/Element.js'
 import * as Time from './utils/Time.js'
 import { stationLinesPopupTemplate, hospitalLinePopupTemplate } from './config/popups.js'
 import { lineSymbol, closestLineSymbol, webStyleSymbol } from './config/symbols.js'
+import { ganttResource } from './utils/Timeline.js'
 import * as Alert from './utils/Alert.js'
 
 let view = null
@@ -99,7 +100,7 @@ const createResultSection = (result) => {
             ])
           ])
   )
-}
+} 
 
 const solve = async (incident) => {
   resultsLayer.removeAll() // Remove previous results from map
@@ -137,6 +138,7 @@ const solve = async (incident) => {
       geometry: mergeLines([toIncidentGraphic.geometry, fromIncidentGraphic.geometry]),
       ...toIncidentGraphic.attributes,
       ...fromIncidentGraphic.attributes,
+      ...station.attributes,
       totaltime: toIncidentGraphic.attributes.flighttimeminutes + fromIncidentGraphic.attributes.returntimeminutes + station.attributes.Empirical
     })
   })
@@ -159,6 +161,10 @@ const addResultsToList = (results) => {
   let block = document.querySelector(`#results-block-container`)
   block.innerHTML = '' // Remove previous results from list
   
+  //timeline(results) // Create a timeline for the results
+  ganttResource(results) // Create a timeline for the results
+
+
   results.forEach(result => {
     let action =  createAction('layer-zoom-to')
     action.addEventListener('click', event => view.goTo(result.geometry))
